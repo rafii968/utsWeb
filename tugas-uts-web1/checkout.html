@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Pemesanan - Toko Buku Pink</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(180deg, #ffe6f0, #ffffff);
+      font-family: "Poppins", sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding-top: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+    h3 {
+      color: #d63384;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      transition: 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: #d63384;
+      outline: none;
+      box-shadow: 0 0 5px rgba(214, 51, 132, 0.3);
+    }
+    .btn {
+      background-color: #fff;
+      color: #d63384;
+      border: 2px solid #d63384;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn:hover {
+      background-color: #d63384;
+      color: white;
+      transform: scale(1.05);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border-bottom: 1px solid #eee;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffe6f0;
+      color: #d63384;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 style="color:#d63384;">Pemesanan</h2>
+      <button class="btn" onclick="window.location.href='dashboard.html'">Dashboard</button>
+    </div>
+
+    <div class="card">
+      <h3>Form Pemesanan</h3>
+      <label>Nama Pemesan</label>
+      <input id="namaPemesan" placeholder="Nama lengkap">
+
+      <label>Alamat</label>
+      <input id="alamat" placeholder="Alamat lengkap">
+
+      <label>Pilih Buku</label>
+      <select id="pilihBuku"></select>
+
+      <label>Jumlah</label>
+      <input id="jumlah" type="number" value="1" min="1">
+
+      <label>Ekspedisi</label>
+      <select id="ekspedisi">
+        <option>JNE</option>
+        <option>Pos Indonesia</option>
+        <option>Tiki</option>
+      </select>
+
+      <label>Paket</label>
+      <select id="paket">
+        <option>Reguler</option>
+        <option>Express</option>
+      </select>
+
+      <button class="btn" onclick="placeOrder()">Place Order</button>
+    </div>
+
+    <div class="card">
+      <h3>Daftar Order</h3>
+      <table id="tabelOrder">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Buku</th>
+            <th>Jumlah</th>
+            <th>Ekspedisi</th>
+            <th>Paket</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    // isi dropdown dari data.js
+    function isiDropdownBuku() {
+      const select = document.getElementById("pilihBuku");
+      select.innerHTML = '<option value="">-- Pilih Buku --</option>';
+      dataKatalogBuku.forEach((buku) => {
+        const opt = document.createElement("option");
+        opt.value = buku.kodeBarang;
+        opt.textContent = `${buku.namaBarang} (${buku.harga})`;
+        select.appendChild(opt);
+      });
+    }
+
+    // fungsi tambah order ke tabel
+    function placeOrder() {
+      const nama = document.getElementById("namaPemesan").value.trim();
+      const alamat = document.getElementById("alamat").value.trim();
+      const kode = document.getElementById("pilihBuku").value;
+      const jumlah = parseInt(document.getElementById("jumlah").value);
+      const ekspedisi = document.getElementById("ekspedisi").value;
+      const paket = document.getElementById("paket").value;
+
+      if (!nama || !alamat || !kode) {
+        alert("Mohon isi semua field terlebih dahulu.");
+        return;
+      }
+
+      const buku = dataKatalogBuku.find((b) => b.kodeBarang === kode);
+      const harga = parseInt(buku.harga.replace(/[^\d]/g, ""));
+      const total = harga * jumlah;
+
+      const tbody = document.querySelector("#tabelOrder tbody");
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${nama}</td>
+        <td>${buku.namaBarang}</td>
+        <td>${jumlah}</td>
+        <td>${ekspedisi}</td>
+        <td>${paket}</td>
+        <td>Rp ${total.toLocaleString("id-ID")}</td>
+      `;
+      tbody.appendChild(tr);
+
+      alert("Pesanan berhasil ditambahkan!");
+    }
+
+    document.addEventListener("DOMContentLoaded", isiDropdownBuku);
+  </script>
+</body>
+</html>

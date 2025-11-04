@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Stok / Katalog - Toko Buku</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    img.cover {
+      width: 70px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    th {
+      background-color: #ffe6f0;
+      color: #d63384;
+    }
+    td img {
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">Stok / Katalog</div>
+      <div style="margin-left:auto">
+        <button class="btn" onclick="window.location.href='dashboard.html'">Dashboard</button>
+        <button class="btn" onclick="window.location.href='checkout.html'">Pemesanan</button>
+        <button class="btn" onclick="window.location.href='tracking.html'">Tracking</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Daftar Buku</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Gambar</th>
+            <th>Judul</th>
+            <th>Jenis</th>
+            <th>Edisi</th>
+            <th>Harga</th>
+            <th>Stok</th>
+          </tr>
+        </thead>
+        <tbody id="tabelBukuBody">
+          <!-- isi tabel akan diisi otomatis lewat JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    // fungsi untuk render data dari data.js
+    function renderKatalog() {
+      const tbody = document.getElementById('tabelBukuBody');
+      tbody.innerHTML = '';
+
+      dataKatalogBuku.forEach((buku) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${buku.kodeBarang}</td>
+          <td><img src="${buku.cover}" alt="${buku.namaBarang}" class="cover"></td>
+          <td>${buku.namaBarang}</td>
+          <td>${buku.jenisBarang}</td>
+          <td>${buku.edisi}</td>
+          <td>${buku.harga}</td>
+          <td>${buku.stok}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // render otomatis ketika halaman dimuat
+    document.addEventListener('DOMContentLoaded', renderKatalog);
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Tracking - Toko Buku</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">Tracking Pengiriman</div>
+      <div style="margin-left:auto">
+        <button class="btn" onclick="window.location.href='dashboard.html'">Dashboard</button>
+        <button class="btn" onclick="window.location.href='stok.html'">Stok</button>
+        <button class="btn" onclick="window.location.href='checkout.html'">Pemesanan</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Cari berdasarkan Nomor Delivery Order</h3>
+      <input id="doNumber" placeholder="Masukkan nomor DO (misal DO1001)">
+      <button class="btn" onclick="cariTracking()">Cari</button>
+    </div>
+
+    <div id="trackingResult" style="margin-top:12px"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

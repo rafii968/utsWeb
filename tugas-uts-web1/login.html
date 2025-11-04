@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Login - Toko Buku</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-box">
+    <div class="brand">Toko Buku Pink</div>
+    <p class="small">Masuk untuk melanjutkan pemesanan</p>
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <button class="btn" onclick="login()">Login</button>
+    <div style="margin-top:10px;">
+      <a href="#" onclick="showModal('lupa')" class="small">Lupa Password?</a> |
+      <a href="#" onclick="showModal('daftar')" class="small">Daftar</a>
+    </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modalText"></div>
+    </div>
+  </div>
+  
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
+

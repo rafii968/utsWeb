@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Toko Buku</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">Toko Buku Pink</div>
+      <div style="margin-left:auto">
+        <button class="btn" onclick="window.location.href='stok.html'">Stok / Katalog</button>
+        <button class="btn" onclick="window.location.href='checkout.html'">Pemesanan</button>
+        <button class="btn" onclick="window.location.href='tracking.html'">Tracking</button>
+        <button class="btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <h2 id="greeting">Selamat Datang</h2>
+    <p class="small">Pilih menu untuk mengelola katalog, pemesanan, dan tracking.</p>
+
+    <section style="margin-top:16px">
+      <div class="card">
+        <h3>Ringkasan Singkat</h3>
+        <ul>
+          <li><strong>Jumlah Buku:</strong> <span id="countBuku">-</span></li>
+          <li><strong>Jumlah Order:</strong> <span id="countOrder">-</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    const katalog = JSON.parse(localStorage.getItem('katalog') || '[]');
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    document.getElementById('countBuku').innerText = katalog.length;
+    document.getElementById('countOrder').innerText = orders.length;
+  </script>
+</body>
+</html>
